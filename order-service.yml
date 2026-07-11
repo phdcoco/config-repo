@@ -1,0 +1,42 @@
+# order-service.yml — spring.application.name=order-service 인 서비스에게만 배달된다.
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 5
+
+spring:
+  # 서비스마다 자기만의 DB를 갖는다 (Database per Service)
+  datasource:
+    url: jdbc:h2:mem:orderdb;DB_CLOSE_DELAY=-1
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# "base-url 만 바꾸면 MSA" 의 실체 — 배포 환경에선 이 값만 바꾼다.
+order:
+  client:
+    product-base-url: http://product-service
+    payment-base-url: http://payment-service
+
+# 차단기 관제 창구.
+# ⚠️ 함정 주의: 서비스별 파일의 이 키는 공통 application.yml 의 exposure 를 "덮어쓴다".
+# refresh 를 다시 적어주지 않으면 Step 4에서 열어둔 /actuator/refresh 가 닫혀 버린다! (자주 겪는 문제 ⑤)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,circuitbreakers,circuitbreakerevents
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true

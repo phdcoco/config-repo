@@ -1,0 +1,49 @@
+# settlement-service.yml — spring.application.name=settlement-service 인 서비스에게만 배달된다.
+server:
+  port: 8086
+
+spring:
+  # 정산은 주문 read-model(orders/payments)과 정산 결과(settlements)를 자기 DB에 둔다.
+  datasource:
+    url: jdbc:h2:mem:settlementdb;DB_CLOSE_DELAY=-1
+    # [Step4] 병렬 처리(멀티스레드/파티셔닝)용 커넥션 풀
+    hikari:
+      maximum-pool-size: 20
+      connection-timeout: 3000
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  # --- Spring Batch ---
+  batch:
+    job:
+      # 부팅 시 등록된 Job 자동 실행 끄기 (정산 Job 은 컨트롤러에서 수동 실행)
+      enabled: false
+    jdbc:
+      # H2 에 배치 메타데이터 테이블(BATCH_JOB_*, BATCH_STEP_*) 자동 생성
+      initialize-schema: always
+
+# SQL 바인딩 파라미터까지 로그로 출력
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace
+
+settlement:
+  batch:
+    # 정산 Job 의 chunk 크기 (= Reader pageSize)
+    chunk-size: 1000
+    # [Step4] 병렬 처리
+    thread-count: 8
+    grid-size: 8
+  # --- 대용량 시드 데이터 (정산 배치 실습용) ---
+  # true 로 켜면 부팅 시 orders/payments 테이블에 대량 데이터를 적재한다.
+  seed:
+    enabled: false
+    count: 1000000
+    batch-size: 10000

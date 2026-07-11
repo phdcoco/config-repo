@@ -1,0 +1,22 @@
+# payment-service.yml — spring.application.name=payment-service 인 서비스에게만 배달된다.
+server:
+  port: 8082
+
+spring:
+  # 서비스마다 자기만의 DB를 갖는다 (Database per Service)
+  datasource:
+    url: jdbc:h2:mem:paymentdb;DB_CLOSE_DELAY=-1
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+payment:
+  demo:
+    delay-ms: 0
