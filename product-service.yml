@@ -1,0 +1,6 @@
+# 파일 이름을 spring.application.name으로 설정해야 한다.
+# 그러므로 이 파일은 product-service에만 적용된다.
+
+product:
+  banner:
+    message: "쏘양이마켓의 여름 세일 - 전 상품 10% 할인!"

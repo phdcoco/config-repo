@@ -1,0 +1,6 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    refresh:
+      enable: false # Eureka 클라이언트는 건드리지 않고 필요한 부분만 갈아끼움
