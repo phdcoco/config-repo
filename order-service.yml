@@ -3,7 +3,7 @@ server:
   port: 8080
   tomcat:
     threads:
-      max: 5
+      max: 5 # 실습용 - 장애 전파. (원래 200임, 트래픽 몰리게 해보는 것임.)
 
 spring:
   # 서비스마다 자기만의 DB를 갖는다 (Database per Service)
