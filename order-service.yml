@@ -23,7 +23,8 @@ spring:
 # "base-url 만 바꾸면 MSA" 의 실체 — 배포 환경에선 이 값만 바꾼다.
 order:
   client:
-    product-base-url: http://product-service
+    # Feign을 추가함. Feign은 name으로 찾으니까 지워도 된다.
+    # product-base-url: http://product-service
     payment-base-url: http://payment-service
 
 # 차단기 관제 창구.
