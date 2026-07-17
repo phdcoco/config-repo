@@ -20,4 +20,4 @@ spring:
 # 실습용 지연 스워치 - 값을 바꿔 커밋한 뒤 POST 날리면 됨.
 payment:
   demo:
-    delay-ms: 3000
+    delay-ms: 0
