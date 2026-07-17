@@ -19,6 +19,19 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  # Feign을 훔쳐 보자.
+  # 로거 레벨을 full로 해서 요청/응답의 라인, 헤더, 바디 전부 보게 하자.
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: full
+  # Feign 로그는 DEBUG 레벨로 찍힌다.
+  logging:
+    level:
+      com.growmighty.lectures.firstday.order.infrastructure.client: DEBUG
+
 
 # "base-url 만 바꾸면 MSA" 의 실체 — 배포 환경에선 이 값만 바꾼다.
 order:
@@ -41,3 +54,4 @@ management:
   health:
     circuitbreakers:
       enabled: true
+
