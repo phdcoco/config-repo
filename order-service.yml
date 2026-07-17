@@ -27,6 +27,9 @@ spring:
         config:
           default:
             logger-level: full
+            connect-timeout: 1000 # 접속 시도는 1초까지만
+            read-timeout: 3000 # 응답 대기는 3초까지만
+
   # Feign 로그는 DEBUG 레벨로 찍힌다.
 logging:
   level:
