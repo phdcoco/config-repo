@@ -28,9 +28,9 @@ spring:
           default:
             logger-level: full
   # Feign 로그는 DEBUG 레벨로 찍힌다.
-  logging:
-    level:
-      com.growmighty.lectures.firstday.order.infrastructure.client: DEBUG
+logging:
+  level:
+    com.growmighty.lectures.firstday.order.infrastructure.client: DEBUG
 
 
 # "base-url 만 바꾸면 MSA" 의 실체 — 배포 환경에선 이 값만 바꾼다.
